@@ -1,0 +1,44 @@
+{
+  "name": "template-vike-elysia-solid-daisyui",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "yarn@4.5.0",
+  "scripts": {
+    "dev": "bun --bun vite",
+    "build": "bun --bun vite build",
+    "serve": "bun --bun vite preview",
+    "lint": "bun --bun eslint .",
+    "od": "yarn outdated"
+  },
+  "dependencies": {
+    "@elysiajs/cors": "^1.1.1",
+    "elysia": "^1.1.16",
+    "solid-js": "^1.8.23",
+    "vike-node": "^0.1.16"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.1.10",
+    "@types/eslint": "^8.56.12",
+    "@types/node": "^22.6.1",
+    "@typescript-eslint/eslint-plugin": "^8.7.0",
+    "@typescript-eslint/parser": "^8.7.0",
+    "autoprefixer": "^10.4.20",
+    "daisyui": "^4.12.10",
+    "eslint": "^8.57.1",
+    "eslint-import-resolver-node": "^0.3.9",
+    "eslint-import-resolver-typescript": "^3.6.3",
+    "eslint-plugin-import": "^2.30.0",
+    "eslint-plugin-tailwindcss": "^3.17.4",
+    "eslint-plugin-unicorn": "^55.0.0",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.13",
+    "typescript": "5.5.4",
+    "vike": "^0.4.196",
+    "vike-solid": "^0.7.5",
+    "vite": "^5.4.7"
+  },
+  "engines": {
+    "node": ">=20 || >=22"
+  }
+}
