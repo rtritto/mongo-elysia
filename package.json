@@ -13,7 +13,12 @@
   },
   "dependencies": {
     "@elysiajs/cors": "^1.1.1",
+    "bson": "^6.8.0",
     "elysia": "^1.1.16",
+    "jotai": "^2.10.0",
+    "mongodb": "^6.9.0",
+    "mongodb-query-parser": "^4.2.5",
+    "solid-jotai": "^0.3.0",
     "solid-js": "^1.9.1"
   },
   "devDependencies": {
@@ -37,7 +42,8 @@
     "vike": "^0.4.197",
     "vike-node": "^0.1.16",
     "vike-solid": "^0.7.5",
-    "vite": "^5.4.8"
+    "vite": "^5.4.8",
+    "vite-plugin-pwa": "^0.20.5"
   },
   "engines": {
     "node": ">=20 || >=22"
