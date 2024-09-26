@@ -2,7 +2,7 @@ export { }
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-var
-  var config: import('../config.default.mts')
+  var config: import('../../config.default.mts')
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-var
   var mongo: Mongo
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-var
