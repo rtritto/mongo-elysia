@@ -8,9 +8,11 @@ const data = (pageContext: PageContext) => {
     throw new Error(validationRes.error)
   }
   return {
-    pageProps: pageContext.routeParams,
-    config: {
-      title: `${dbName} - Mongo Express`
+    pageContext: {
+      pageProps: pageContext.routeParams,
+      config: {
+        title: `${dbName} - Mongo Express`
+      }
     }
   }
 }
