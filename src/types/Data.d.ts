@@ -6,6 +6,7 @@ type DataHome = {
 
 type DataDatabase = {
   databases: typeof global.mongo.databases
+  collections: typeof global.mongo.collections
   dbName: string
   title: string
 }

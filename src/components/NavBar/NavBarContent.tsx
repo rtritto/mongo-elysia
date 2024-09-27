@@ -39,7 +39,7 @@ const NavBarDesktop: Component = () => {
               </select>
             </li>
 
-            <Show when={selectedCollection()}>
+            <Show when={selectedDatabase()}>
               <li>
                 <select class="select select-ghost w-full max-w-xs" onChange={(event) => window.location.href = `${EP_DATABASE(selectedDatabase()!)}/${event.currentTarget.value}`}>
                   <option disabled selected hidden>Collections</option>

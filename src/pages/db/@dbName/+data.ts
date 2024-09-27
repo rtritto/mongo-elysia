@@ -1,9 +1,9 @@
 import { redirect } from 'vike/abort'
-import type { DataSync } from 'vike/types'
+import type { DataAsync } from 'vike/types'
 
 import { isValidDatabaseName } from '@/utils/validations'
 
-export const data: DataSync<DataDatabase> = (pageContext) => {
+export const data: DataAsync<DataDatabase> = async (pageContext) => {
   const { dbName } = pageContext.routeParams
   const validationDbRes = isValidDatabaseName(dbName)
   if ('error' in validationDbRes) {
@@ -16,6 +16,7 @@ export const data: DataSync<DataDatabase> = (pageContext) => {
   }
   return {
     databases: global.mongo.databases,
+    collections: await global.mongo.getCollections(dbName),
     dbName,
     title: `Database: ${dbName}`
   } satisfies DataDatabase
