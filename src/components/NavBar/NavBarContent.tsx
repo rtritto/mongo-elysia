@@ -1,12 +1,12 @@
 import { useAtomValue } from 'solid-jotai'
 import { type Component, For, Show } from 'solid-js'
-import { useData } from 'vike-solid/useData'
 
 import { EP_DATABASE, EP_DB } from '@/configs/endpoints'
-import { selectedCollectionState, selectedDatabaseState } from '@/stores/globalAtoms'
+import { collectionsState, databasesState, selectedCollectionState, selectedDatabaseState } from '@/stores/globalAtoms'
 
 const NavBarDesktop: Component = () => {
-  const data = useData<DataLayout>()
+  const databases = useAtomValue(databasesState)
+  const collections = useAtomValue(collectionsState)
   const selectedDatabase = useAtomValue(selectedDatabaseState)
   const selectedCollection = useAtomValue(selectedCollectionState)
   return (
@@ -29,7 +29,7 @@ const NavBarDesktop: Component = () => {
               <select class="select select-ghost w-full max-w-xs" onChange={(event) => window.location.href = `${EP_DB}/${event.currentTarget.value}`}>
                 <option disabled selected hidden>Database</option>
 
-                <For each={data.databases}>
+                <For each={databases()}>
                   {(database) => (
                     <option value={database} selected={selectedDatabase() === database} disabled={selectedDatabase() === database}>
                       {database}
@@ -44,7 +44,7 @@ const NavBarDesktop: Component = () => {
                 <select class="select select-ghost w-full max-w-xs" onChange={(event) => window.location.href = `${EP_DATABASE(selectedDatabase()!)}/${event.currentTarget.value}`}>
                   <option disabled selected hidden>Collections</option>
 
-                  <For each={data.collections}>
+                  <For each={collections()}>
                     {(collection) => (
                       <option value={collection} selected={selectedCollection() === collection} disabled={selectedCollection() === collection}>
                         {collection}
