@@ -14,28 +14,34 @@ let mongoClient: MongoClient
 // connectionData = 
 const getMongo = () => ({
   clients: [] as ClientInfo[],
-  collections: {} as Collections,
+  collections: {} as string[],
   connections: {} as Connections,
   databases: [] as string[],
   mainClient: null as ClientInfo | null,
   adminDb: null as ClientInfo['adminDb'] | null,
   // update the collections list
   getDatabases() { return Object.keys(this.connections).sort() },
-  async updateCollections(dbConnection: Connection) {
-    if (!dbConnection.fullName) {
-      console.error('Received db instead of db connection')
-      return /* [] */
-    }
-    const collections = await dbConnection.db.listCollections().toArray()
-    const names = []
-    for (const collection of collections) {
-      names.push(collection.name)
-    }
-    this.collections[dbConnection.fullName] = names.sort()
-    // return collections
+  async getCollections(dbName: string) {
+    const collections = await mongoClient.db(dbName).listCollections().toArray()
+    return collections
+      .map((collection) => collection.name)
+      .sort()
   },
+  // async updateCollections(dbConnection: Connection) {
+  //   if (!dbConnection.fullName) {
+  //     console.error('Received db instead of db connection')
+  //     return /* [] */
+  //   }
+  //   const collections = await dbConnection.db.listCollections().toArray()
+  //   const names = []
+  //   for (const collection of collections) {
+  //     names.push(collection.name)
+  //   }
+  //   this.collections[dbConnection.fullName] = names.sort()
+  //   // return collections
+  // },
   // update database list
-  addConnection(info: ClientInfo, db: Db, dbName: string): Connection {
+  addConnection(info: ClientInfo, db: Db, dbName: string): void /* Connection */ {
     const fullName = this.clients.length > 1
       ? `${info.connectionName}_${dbName}`
       : dbName
@@ -46,11 +52,11 @@ const getMongo = () => ({
       db
     }
     this.connections[fullName] = connection
-    return connection
+    // return connection
   },
   async updateDatabases() {
     this.connections = {}
-    this.collections = {}
+    // this.collections = {}
     await Promise.all(
       this.clients.map(async (clientInfo: ClientInfo) => {
         if (clientInfo.adminDb) {
@@ -65,16 +71,18 @@ const getMongo = () => ({
               if (clientInfo.info.blacklist.length > 0 && clientInfo.info.blacklist.includes(dbName)) {
                 continue
               }
-              const connection = this.addConnection(clientInfo, clientInfo.client.db(dbName), dbName)
+              this.addConnection(clientInfo, clientInfo.client.db(dbName), dbName)
+              // const connection = 
               // eslint-disable-next-line no-await-in-loop
-              await this.updateCollections(connection)
+              // await this.updateCollections(connection)
             }
           }
         } else {
           const dbConnection = clientInfo.client.db()
           const dbName = dbConnection.databaseName
-          const connection = this.addConnection(clientInfo, dbConnection, dbName)
-          await this.updateCollections(connection)
+          this.addConnection(clientInfo, dbConnection, dbName)
+          // const connection = 
+          // await this.updateCollections(connection)
         }
         this.databases = this.getDatabases()
       })
@@ -83,18 +91,16 @@ const getMongo = () => ({
   async connect(config: Config = process.env.config) {
     if (mongoClient !== undefined) {
       await this.updateDatabases()
-      await Promise.all(
-        Object.values(this.connections).map((connection) => this.updateCollections(connection))
-      )
+      // await Promise.all(
+      //   Object.values(this.connections).map((connection) => this.updateCollections(connection))
+      // )
       return mongoClient
     }
 
     // database connections
     const connections = Array.isArray(config.mongodb) ? config.mongodb : [config.mongodb]
     this.clients = await Promise.all(connections.map(async (connectionInfo: MongoDb, index: number) => {
-      const {
-        connectionString, connectionName, admin, connectionOptions,
-      } = connectionInfo
+      const { connectionString, connectionName, admin, connectionOptions } = connectionInfo
       try {
         const client = await MongoClient.connect(connectionString, connectionOptions)
         const adminDb = admin ? client.db().admin() : null
@@ -128,4 +134,4 @@ export default getMongo
 
 // global.mongo = mongo
 
-// export type Mongo = typeof mongo
+export type Mongo = ReturnType<typeof getMongo>

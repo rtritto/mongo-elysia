@@ -1,8 +1,8 @@
-import type { DataSync } from 'vike/types'
+import type { DataAsync } from 'vike/types'
 
 import { isValidCollectionName, isValidDatabaseName } from '@/utils/validations'
 
-export const data: DataSync<DataCollection> = (pageContext) => {
+export const data: DataAsync<DataCollection> = async (pageContext) => {
   const { dbName, collectionName } = pageContext.routeParams
   const validationDbRes = isValidDatabaseName(dbName)
   if ('error' in validationDbRes) {
@@ -13,6 +13,8 @@ export const data: DataSync<DataCollection> = (pageContext) => {
     throw new Error(validationCollRes.error)
   }
   return {
+    databases: global.mongo.databases,
+    collections: await global.mongo.getCollections(dbName),
     dbName,
     collectionName,
     title: `Collection: ${collectionName}`

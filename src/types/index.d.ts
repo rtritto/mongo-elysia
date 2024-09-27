@@ -140,21 +140,22 @@ type Connections = {
   [key: string]: Connection
 }
 
-// type Mongo = import('middlewares/db.mts').Mongo
-type Mongo = {
-  clients: ClientInfo[]
-  collections: Collections
-  connections: Connections
-  databases: string[]
-  // gridFSBuckets?  TODO
-  mainClient: ClientInfo | null
-  adminDb: ClientInfo['adminDb'] | null
-  addConnection: (info: ClientInfo, db: Db, dbName: string) => Connection
-  getDatabases: () => string[]
-  updateCollections: (dbConnection: Connection) => Promise<void>
-  updateDatabases: () => Promise<void>
-  connect: (config?: Config) => Promise<MongoClient>
-}
+type Mongo = import('@/middlewares/db').Mongo
+// type Mongo = {
+//   clients: ClientInfo[]
+//   collections: string[]
+//   connections: Connections
+//   databases: string[]
+//   // gridFSBuckets?  TODO
+//   mainClient: ClientInfo | null
+//   adminDb: ClientInfo['adminDb'] | null
+//   addConnection: (info: ClientInfo, db: Db, dbName: string) => Connection
+//   getDatabases: () => string[]
+//   getCollections: (dbName: string) => Promise<string[]>
+//   updateCollections: (dbConnection: Connection) => Promise<void>
+//   updateDatabases: () => Promise<void>
+//   connect: (config?: Config) => Promise<MongoClient>
+// }
 
 interface Params extends ParsedUrlQuery {
   collectionName: string

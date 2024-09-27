@@ -6,7 +6,7 @@ import { EP_DATABASE, EP_DB } from '@/configs/endpoints'
 import { selectedCollectionState, selectedDatabaseState } from '@/stores/globalAtoms'
 
 const NavBarDesktop: Component = () => {
-  const data = useData<DataHome>()
+  const data = useData<DataLayout>()
   const selectedDatabase = useAtomValue(selectedDatabaseState)
   const selectedCollection = useAtomValue(selectedCollectionState)
   return (
@@ -44,10 +44,10 @@ const NavBarDesktop: Component = () => {
                 <select class="select select-ghost w-full max-w-xs" onChange={(event) => window.location.href = `${EP_DATABASE(selectedDatabase()!)}/${event.currentTarget.value}`}>
                   <option disabled selected hidden>Collections</option>
 
-                  <For each={data.databases}>
-                    {(database) => (
-                      <option value={database} selected={selectedCollection() === database} disabled={selectedCollection() === database}>
-                        {database}
+                  <For each={data.collections}>
+                    {(collection) => (
+                      <option value={collection} selected={selectedCollection() === collection} disabled={selectedCollection() === collection}>
+                        {collection}
                       </option>
                     )}
                   </For>

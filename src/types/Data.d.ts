@@ -12,6 +12,7 @@ type DataDatabase = {
 
 type DataCollection = {
   databases: typeof global.mongo.databases
+  collections: typeof global.mongo.collections
   dbName: string
   collectionName: string
   title: string
@@ -19,6 +20,7 @@ type DataCollection = {
 
 type DataLayout = {
   databases: typeof global.mongo.databases
+  collections: typeof global.mongo.collections
   dbName?: string
   collectionName?: string
   title: string

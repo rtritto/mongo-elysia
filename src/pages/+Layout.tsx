@@ -6,7 +6,7 @@ import { useData } from 'vike-solid/useData'
 import '@/layouts/styles.css'
 import NavBar from '@/components/NavBar'
 import HydrateAtoms from '@/components/HydrateAtoms'
-import { databasesState, selectedCollectionState, selectedDatabaseState } from '@/stores/globalAtoms'
+import { selectedCollectionState, selectedDatabaseState } from '@/stores/globalAtoms'
 
 export const Layout: Component<{ children: JSXElement }> = (props) => {
   const data = useData<DataLayout>()
@@ -15,7 +15,12 @@ export const Layout: Component<{ children: JSXElement }> = (props) => {
       <Provider>
         <HydrateAtoms
           initialValues={(() => {
-            const values = [[databasesState, data.databases]] as [WritableAtom<unknown, any[], any>, unknown][]
+            const values = [] as [WritableAtom<unknown, any[], any>, unknown][]
+            // TODO REMOVE or USE
+            // [[databasesState, data.databases]] 
+            // if ('collections' in data) {
+            //   values.push([collectionsState, data.collections!])
+            // }
             if ('dbName' in data) {
               values.push([selectedDatabaseState, data.dbName!])
             }
