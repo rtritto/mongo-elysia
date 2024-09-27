@@ -1,7 +1,8 @@
-import { DataHome } from '@/types/Data'
+import type { DataAsync } from 'vike/types'
+
 import { mapServerStatus } from '@/utils/mappers/mapInfo'
 
-const data = async () => {
+export const data: DataAsync<DataHome> = async () => {
   const { config, mongo } = global
   return {
     databases: mongo.databases,
@@ -11,5 +12,3 @@ const data = async () => {
     }
   } satisfies DataHome
 }
-
-export default data

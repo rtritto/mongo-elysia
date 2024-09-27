@@ -5,14 +5,12 @@ import NavBar from '@/components/NavBar'
 
 export const Layout: Component<{ children: JSXElement }> = (props) => {
   return (
-    <div>
-      {/* TODO <NavBar /> */}
+    <div class="container mx-auto max-w-screen-xl px-6">
+      <NavBar />
 
-      <div class="container mx-auto max-w-screen-xl px-6">
-        <main class="relative">
-          {props.children}
-        </main>
-      </div>
+      <main class="relative">
+        {props.children}
+      </main>
     </div>
   )
 }

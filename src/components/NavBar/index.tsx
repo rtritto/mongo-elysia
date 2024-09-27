@@ -1,86 +1,98 @@
-import {
-  AppBar, Container,
-  // Hidden,  // TODO
-  List, Typography, Toolbar, Breadcrumbs
-} from '@suid/material'
 import { useAtomValue } from 'solid-jotai'
-import { Component, Show } from 'solid-js'
+import { type Component, For, Show } from 'solid-js'
+import { useData } from 'vike-solid/useData'
 
 // import { darkModeState } from 'src/store/Theme/atoms'
+import { EP_DATABASE, EP_DB } from '@/configs/endpoints'
 import Link from './Link'
 import NavCollections from './NavCollections'
 import NavDatabases from './NavDatabases'
 import { selectedCollectionState, selectedDatabaseState } from '@/stores/globalAtoms'
+import { DataHome } from '@/types/Data'
 
-const NavBar: Component<{
-  // collections: Mongo['collections']
-  // databases: Mongo['databases']
-  // show: {
-  //   databases: boolean
-  //   collections: boolean
-  // }
-}> = () => {
+const NavBar: Component = () => {
+  const data = useData<DataHome>()
   const selectedDatabase = useAtomValue(selectedDatabaseState)
-  console.log('selectedDatabase: ', selectedDatabase() !== undefined);
   const selectedCollection = useAtomValue(selectedCollectionState)
-  console.log('selectedCollection: ', selectedCollection() !== undefined);
   return (
-    <AppBar position="relative">
-      <Container>
-        <Toolbar disableGutters variant="dense">
-          {/* <Hidden mdDown> */}
-          <List
-            aria-labelledby="main navigation"
-            component="nav"
-            sx={{	// navDisplayFlex
-              display: 'flex',
-              p: 0,
-              alignItems: 'center',
-              // justifyContent: 'space-between'
-            }}
-          >
-            <Link href="/"
-            // passHref
-            // style={{ display: 'flex', margin: 12 // padding: 0, verticalAlign: 'middle' }}
-            >
-              {/* TODO change with Vike Image */}
-              <img src="/favicon.ico" height={24} width={24} alt="logo" />
-            </Link>
+    // <div class="bg-base-300 relative">
+    //   <div class="container mx-auto">
+    //     <div class="navbar p-2">
+    //       {/* Show only on large screens and above */}
+    //       <div class="hidden md:flex items-center space-x-4">
+    //         <nav class="flex items-center p-0">
+    //           <a href="/" class="flex items-center m-3 p-0">
+    //             <img src="/favicon.ico" height={24} width={24} alt="logo" />
+    //           </a>
 
-            <Typography
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                // mr: 2,
-                // display: { xs: 'flex', md: 'none' },
-                // flexGrow: 1,
-                // fontFamily: 'monospace',
-                // fontWeight: 700,
-                // letterSpacing: '.3rem',
-                px: 1.5,
-                py: 1,
-                color: 'rgb(153, 143, 143)',
-                textDecoration: 'none',
-                ':hover': {
-                  color: 'white'
-                }
-              }}
-            >
-              Mongo Express
-            </Typography>
+    //           <a
+    //             href="/"
+    //             class="px-3 py-2 text-gray-500 hover:text-white no-underline"
+    //           >
+    //             Mongo Express
+    //           </a>
 
-            <Breadcrumbs aria-label="breadcrumb" separator=">" >
-              <NavDatabases />
+    //           <div aria-label="breadcrumb" class="text-sm breadcrumbs">
+    //             <NavDatabases />
 
-              <Show when={selectedDatabase()}>
-                <NavCollections />
-              </Show>
-            </Breadcrumbs>
-          </List>
-        </Toolbar>
-      </Container>
-    </AppBar>
+    //             <Show when={selectedDatabase()}>
+    //               <NavCollections />
+    //             </Show>
+    //           </div>
+    //         </nav>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
+    <div class="navbar rounded-box bg-base-300">
+      <div class="flex-1 px-2 py-0 lg:flex-none">
+        <button>
+          <a href="/" class="flex items-center p-2 text-lg text-gray-500 no-underline hover:text-white">
+            <img src="/src/assets/favicon.ico" height={24} width={24} alt="logo" />
+
+            <p class="px-2">Mongo Elysia</p>
+          </a>
+        </button>
+      </div>
+
+      {/* <div class="flex flex-1 justify-end px-2"> */}
+      <div class="flex items-stretch">
+        <div class="breadcrumbs text-sm">
+          <ul>
+            <li>
+              <select class="select select-ghost w-full max-w-xs" onChange={(event) => window.location.href = `${EP_DB}/${event.currentTarget.value}`}>
+                <option disabled selected hidden>Database</option>
+
+                <For each={data.databases}>
+                  {(database) => (
+                    <option value={database} selected={selectedDatabase() === database} disabled={selectedDatabase() === database}>
+                      {database}
+                    </option>
+                  )}
+                </For>
+              </select>
+            </li>
+
+            <Show when={selectedCollection()}>
+              <li>
+                <select class="select select-ghost w-full max-w-xs" onChange={(event) => window.location.href = `${EP_DATABASE(selectedDatabase()!)}/${event.currentTarget.value}`}>
+                  <option disabled selected hidden>Collections</option>
+
+                  <For each={data.databases}>
+                    {(database) => (
+                      <option value={database} selected={selectedCollection() === database} disabled={selectedCollection() === database}>
+                        {database}
+                      </option>
+                    )}
+                  </For>
+                </select>
+              </li>
+            </Show>
+          </ul>
+        </div>
+      </div>
+      {/* </div> */}
+    </div>
   )
 }
 

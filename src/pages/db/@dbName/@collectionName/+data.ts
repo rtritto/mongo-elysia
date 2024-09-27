@@ -1,9 +1,8 @@
-// https://vike.dev/onBeforeRender
+import type { DataSync } from 'vike/types'
 
-import type { PageContext } from 'vike'
 import { isValidCollectionName, isValidDatabaseName } from '@/utils/validations'
 
-async function onBeforeRender(pageContext: PageContext) {
+export const data: DataSync<DataCollection> = (pageContext) => {
   const { dbName, collectionName } = pageContext.routeParams
   const validationDbRes = isValidDatabaseName(dbName)
   if ('error' in validationDbRes) {
@@ -14,13 +13,8 @@ async function onBeforeRender(pageContext: PageContext) {
     throw new Error(validationCollRes.error)
   }
   return {
-    pageContext: {
-      pageProps: pageContext.routeParams,
-      config: {
-        title: `Viewing Collection: ${collectionName}`
-      }
-    }
-  }
+    dbName,
+    collectionName,
+    title: `Collection: ${collectionName}`
+  } satisfies DataCollection
 }
-
-export default onBeforeRender

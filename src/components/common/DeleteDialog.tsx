@@ -5,7 +5,7 @@ import {
 import type OutlinedInputProps from '@suid/material/OutlinedInput/OutlinedInputProps'
 import { type Component, createSignal } from 'solid-js'
 
-import { Delete } from '../SvgIcons'
+import { DeleteIcon } from './../Icons/index'
 import CustomDialog from './CustomDialog'
 
 const DeleteDialog: Component<{
@@ -29,7 +29,7 @@ const DeleteDialog: Component<{
       {/* <Tooltip title={props.tooltipTitle}> */}
       <Button
         onClick={handleOpen}
-        startIcon={<SvgIcon><path d={Delete} /></SvgIcon>}
+        startIcon={<DeleteIcon />}
         value={props.value}
         variant="contained"
         sx={{

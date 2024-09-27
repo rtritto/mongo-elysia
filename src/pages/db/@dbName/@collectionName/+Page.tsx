@@ -1,15 +1,13 @@
 import type { Component } from 'solid-js'
+import { useData } from 'vike-solid/useData'
 
-const Page: Component<{
-  collectionName: string
-  dbName: string
-}> = (props) => {
-  // console.log('props: ', props);
+const Page: Component<DataCollection> = () => {
+  const data = useData<DataCollection>()
   return (
     <>
-      <h1>TEST2 - {props.collectionName}</h1>
+      <h1>TEST2 - {data.collectionName}</h1>
 
-      {props.dbName}
+      {data.dbName}
 
       <p>
         Demo using <code>vike</code> with Solid.

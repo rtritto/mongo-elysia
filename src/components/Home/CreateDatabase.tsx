@@ -5,7 +5,7 @@ import { createSignal } from 'solid-js'
 
 import { EP_API_DB } from '@/configs/endpoints'
 import { databasesState, messageErrorState, messageSuccessState } from '@/stores/globalAtoms'
-import { Add } from '../SvgIcons'
+import { AddIcon } from './../Icons/index'
 // import { isValidDatabaseName } from 'lib/validations'
 
 const CreateDatabase = () => {
@@ -65,7 +65,7 @@ const CreateDatabase = () => {
           <Button
             disabled={!database() || 'controllerCreateDatabase' in methods.formState.errors}
             size="small"
-            startIcon={<SvgIcon><path d={Add} /></SvgIcon>}
+            startIcon={<AddIcon />}
             // type="submit"
             variant="contained"
             onClick={handleCreateDatabase}

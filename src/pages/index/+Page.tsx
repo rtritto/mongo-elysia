@@ -3,7 +3,6 @@ import { Provider } from 'solid-jotai'
 import { useData } from 'vike-solid/useData'
 
 import { databasesState } from '@/stores/globalAtoms'
-import { DataHome } from '@/types/Data'
 import Home from '@/components/Home'
 import HydrateAtoms from '@/components/HydrateAtoms'
 

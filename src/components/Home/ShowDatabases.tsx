@@ -3,7 +3,7 @@ import { useSetAtom } from 'solid-jotai'
 import { type Component, For } from 'solid-js'
 
 import { EP_DB } from '@/configs/endpoints'
-import { Visibility } from '../SvgIcons'
+import { VisibilityIcon } from './../Icons/index'
 import CustomLink from '../common/CustomLink'
 import CreateDatabase from './CreateDatabase'
 import DeleteDatabase from './DeleteDatabase'
@@ -57,7 +57,7 @@ const ShowDatabases: Component<{
                         }
                       }}
                       ButtonProps={{
-                        startIcon: <SvgIcon><path d={Visibility} /></SvgIcon>,
+                        startIcon: <VisibilityIcon />,
                         variant: 'contained',
                         sx: {
                           backgroundColor: 'rgb(86, 124, 86)',

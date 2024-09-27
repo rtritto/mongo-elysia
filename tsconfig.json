@@ -26,7 +26,7 @@
     "target": "ESNext",
     "types": [
       "vike-solid/client",
-      "src/types"
+      "./src/types"
     ]
   },
   "exclude": [
