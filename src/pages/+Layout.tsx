@@ -1,56 +1,18 @@
-import type { JSX } from 'solid-js'
+import type { Component, JSXElement } from 'solid-js'
 
 import '@/layouts/styles.css'
-import { Link } from '@/components/Link'
+import NavBar from '@/components/NavBar'
 
-function Sidebar(props: { children: JSX.Element }) {
+export const Layout: Component<{ children: JSXElement }> = (props) => {
   return (
-    <div
-      id="sidebar"
-      style={{
-        padding: '20px',
-        'flex-shrink': 0,
-        display: 'flex',
-        'flex-direction': 'column',
-        'line-height': '1.8em',
-        'border-right': '2px solid #eee'
-      }}
-    >
-      {props.children}
-    </div>
-  )
-}
+    <div>
+      {/* TODO <NavBar /> */}
 
-function Content(props: { children: JSX.Element }) {
-  return (
-    <div id="page-container">
-      <div
-        id="page-content"
-        style={{
-          padding: '20px',
-          'padding-bottom': '50px',
-          'min-height': '100vh'
-        }}
-      >
-        {props.children}
+      <div class="container mx-auto max-w-screen-xl px-6">
+        <main class="relative">
+          {props.children}
+        </main>
       </div>
-    </div>
-  )
-}
-
-export function Layout(props: { children?: JSX.Element }) {
-  return (
-    <div
-      style={{
-        display: 'flex',
-        'max-width': '900px',
-        margin: 'auto'
-      }}
-    >
-      <Sidebar>
-        <Link href="/">Welcome</Link>
-      </Sidebar>
-      <Content>{props.children}</Content>
     </div>
   )
 }

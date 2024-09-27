@@ -1,9 +1,9 @@
 import { useSetAtom } from 'solid-jotai'
 import { Component } from 'solid-js'
 
-import { EP_API_DATABASE } from '../../configs/endpoints'
-import DeleteDialog from '../../components/common/DeleteDialog'
-import { databasesState, messageErrorState, messageSuccessState } from '../../components/store/globalAtoms'
+import { EP_API_DATABASE } from '@/configs/endpoints'
+import DeleteDialog from './../common/DeleteDialog'
+import { databasesState, messageErrorState, messageSuccessState } from '@/stores/globalAtoms'
 
 const tooltipTitle = 'Do you want to delete this database? All collections and documents will be deleted.'
 

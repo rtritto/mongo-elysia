@@ -3,10 +3,10 @@
 import { useSetAtom } from 'solid-jotai'
 import { createSignal } from 'solid-js'
 
-import { EP_API_DB } from '../../configs/endpoints'
-import { Add } from '../../components/SvgIcons'
+import { EP_API_DB } from '@/configs/endpoints'
+import { databasesState, messageErrorState, messageSuccessState } from '@/stores/globalAtoms'
+import { Add } from '../SvgIcons'
 // import { isValidDatabaseName } from 'lib/validations'
-import { databasesState, messageErrorState, messageSuccessState } from '../../components/store/globalAtoms'
 
 const CreateDatabase = () => {
   const [database, setDatabase] = createSignal('')

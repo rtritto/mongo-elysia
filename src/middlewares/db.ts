@@ -1,6 +1,4 @@
-import { MongoClient } from 'mongodb'
-
-import type { Db } from 'mongodb'
+import { type Db, MongoClient } from 'mongodb'
 
 // const { config } = process.env
 

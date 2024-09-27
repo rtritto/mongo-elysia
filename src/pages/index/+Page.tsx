@@ -1,57 +1,28 @@
-import { Box, Container, Divider, Typography } from '@suid/material'
-import { type Component, Show, createEffect } from 'solid-js'
-import { useAtom } from 'solid-jotai'
-import { useHydrateAtoms } from 'solid-jotai/utils'
+import type { Component } from 'solid-js'
+import { Provider } from 'solid-jotai'
+import { useData } from 'vike-solid/useData'
 
-import type { mapServerStatus } from '../../utils/mappers/mapInfo'
-import StatsTable from '../common/StatsTable'
-import ShowDatabases from '@/components/Home/ShowDatabases'
-import { databasesState, messageErrorState, messageSuccessState } from '../../components/store/globalAtoms'
+import { databasesState } from '@/stores/globalAtoms'
+import { DataHome } from '@/types/Data'
+import Home from '@/components/Home'
+import HydrateAtoms from '@/components/HydrateAtoms'
 
-const Page: Component<{
-  databases: Mongo['databases']
+const Page: Component = () => {
   // messageError?: string
   // messageSuccess?: string
-  options: {
-    noDelete: boolean
-    readOnly: boolean
-  }
-  serverStatus?: ReturnType<typeof mapServerStatus>
-}> = (props) => {
-  useHydrateAtoms([[databasesState, props.databases]] as const)
-  const [databases, setDatabases] = useAtom(databasesState)
+  // options: {
+  //   noDelete: boolean
+  //   readOnly: boolean
+  // }
 
-  createEffect(() => {
-    setDatabases(props.databases)
-  })
+  const data = useData<DataHome>()
 
   return (
-    <Container sx={{ p: 1 }}>
-      <Typography component="h4" gutterBottom variant="h4">Mongo Express</Typography>
-
-      <Divider sx={{ border: 1, my: 1.5 }} />
-
-      <ShowDatabases
-        databases={databases()}
-        show={{
-          create: props.options.readOnly === false,
-          delete: props.options.noDelete === false && props.options.readOnly === false
-        }}
-      />
-
-      <Box sx={{ mb: 2 }}>
-        <Show
-          when={props.serverStatus}
-          fallback={<>
-            <Typography component="h4" gutterBottom variant="h4">Server Status</Typography>
-
-            <Typography>Turn on admin in <b>config.js</b> to view server stats!</Typography>
-          </>}
-        >
-          <StatsTable label="Server Status" fields={props.serverStatus} />
-        </Show>
-      </Box>
-    </Container>
+    <Provider>
+      <HydrateAtoms initialValues={[[databasesState, data.databases]]}>
+        <Home {...data} />
+      </HydrateAtoms>
+    </Provider>
   )
 }
 

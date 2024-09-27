@@ -2,12 +2,12 @@ import { Paper, SvgIcon, Table, TableBody, TableCell, TableContainer, TableHead,
 import { useSetAtom } from 'solid-jotai'
 import { type Component, For } from 'solid-js'
 
-import { EP_DB } from '../../configs/endpoints'
-import { Visibility } from '../../components/SvgIcons'
-import CustomLink from '../../components/common/CustomLink'
+import { EP_DB } from '@/configs/endpoints'
+import { Visibility } from '../SvgIcons'
+import CustomLink from '../common/CustomLink'
 import CreateDatabase from './CreateDatabase'
 import DeleteDatabase from './DeleteDatabase'
-import { selectedDatabaseState } from '../../components/store/globalAtoms'
+import { selectedDatabaseState } from '@/stores/globalAtoms'
 
 const TableCellStyle = {
   // border: 1,
