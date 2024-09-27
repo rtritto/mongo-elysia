@@ -37,7 +37,7 @@ const Home: Component<DataHome> = (props) => {
             </>
           )}
         >
-          <StatsTable label="Server Status" fields={props.serverStatus} />
+          <StatsTable label="Server Status" fields={props.serverStatus!} />
         </Show>
       </div>
     </div>
