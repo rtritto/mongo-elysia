@@ -9,6 +9,7 @@ export const data: DataSync<DataDatabase> = (pageContext) => {
     throw new Error(validationRes.error)
   }
   return {
+    databases: global.mongo.databases,
     dbName,
     title: `Database: ${dbName}`
   } satisfies DataDatabase

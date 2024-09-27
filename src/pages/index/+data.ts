@@ -3,12 +3,11 @@ import type { DataAsync } from 'vike/types'
 import { mapServerStatus } from '@/utils/mappers/mapInfo'
 
 export const data: DataAsync<DataHome> = async () => {
-  const { config, mongo } = global
   return {
-    databases: mongo.databases,
-    options: config.options,
-    ...mongo.adminDb !== null && {
-      serverStatus: mapServerStatus((await mongo.adminDb.serverStatus()) as ServerStatus)
+    databases: global.mongo.databases,
+    options: global.config.options,
+    ...global.mongo.adminDb !== null && {
+      serverStatus: mapServerStatus((await global.mongo.adminDb.serverStatus()) as ServerStatus)
     }
   } satisfies DataHome
 }
