@@ -1,6 +1,5 @@
-import { Paper, SvgIcon, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@suid/material'
 import { useSetAtom } from 'solid-jotai'
-import { type Component, For } from 'solid-js'
+import { type Component, For, Show } from 'solid-js'
 
 import { EP_DB } from '@/configs/endpoints'
 import { VisibilityIcon } from './../Icons/index'
@@ -24,90 +23,62 @@ const ShowDatabases: Component<{
   const setSelectedDatabaseState = useSetAtom(selectedDatabaseState)
 
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell sx={{ borderRight: 'none', p: 1.5 }}>
-              <Typography component='h6' variant='h6' sx={{ fontWeight: 'bold' }}>
-                Databases
-              </Typography>
-            </TableCell>
+    <div class="overflow-x-auto rounded-lg bg-base-100 shadow-lg">
+      <table class="table w-full">
+        <thead>
+          <tr>
+            <th class="py-2 text-left text-lg font-bold">
+              Databases
+            </th>
 
-            <TableCell sx={{ px: 1.5, borderLeft: 'none' }} align="right" colSpan={2}>
-              {props.show.create === true && <CreateDatabase />}
-            </TableCell>
-          </TableRow>
-        </TableHead>
+            <th class="py-2 text-right text-lg font-bold" colspan="2">
+              <div class="flex justify-end">
+                <Show when={props.show.create === true}>
+                  CreateDatabase
+                  {/* <CreateDatabase /> */}
+                </Show>
+              </div>
+            </th>
+          </tr>
+        </thead>
+      </table>
 
-        <TableBody>
+      <table class="table w-full">
+        <tbody>
           <For each={props.databases}>
             {(database) => {
               const encodedDatabase = encodeURIComponent(database)
               const hrefView = `${EP_DB}/${encodedDatabase}`
               return (
-                <TableRow>
-                  <TableCell sx={TableCellStyle}>
-                    <CustomLink
-                      LinkProps={{
-                        href: hrefView,
-                        style: {
-                          margin: '1px',
-                          // textDecoration: 'none'  // remove text underline  // missing, not necessary
-                        }
-                      }}
-                      ButtonProps={{
-                        startIcon: <VisibilityIcon />,
-                        variant: 'contained',
-                        sx: {
-                          backgroundColor: 'rgb(86, 124, 86)',
-                          flexDirection: 'column',
-                          py: 0.5,
-                          textTransform: 'none',
-                          width: '100%'
-                        }
-                      }}
-                    >
+                <tr class="container hover flex items-center justify-between">
+                  <td class="w-1/6 p-2">
+                    <a href={hrefView} class="btn btn-success w-full text-xs font-bold text-white">
+                      <VisibilityIcon />
+
                       View
-                    </CustomLink>
-                  </TableCell>
+                    </a>
+                  </td>
 
-                  <TableCell sx={TableCellStyle} width="100%">
-                    <CustomLink
-                      LinkProps={{
-                        href: hrefView,
-                        style: {
-                          margin: '1px',
-                          // textDecoration: 'none'  // remove text underline
-                        }
-                      }}
-                      ButtonProps={{
-                        fullWidth: true,
-                        variant: "text",
-                        sx: {
-                          // py: 2,
-                          justifyContent: 'flex-start',
-                          textTransform: 'none' // remove uppercase
-                        },
-                        onClick: () => setSelectedDatabaseState(database)
-                      }}
-                    >
-                      <Typography component='h6' variant='h6'>{database}</Typography>
-                    </CustomLink>
-                  </TableCell>
+                  <td class="w-full p-2">
+                    <a href={hrefView} class="text-lg font-semibold no-underline" onClick={() => setSelectedDatabaseState(database)}>
+                      <button class="btn w-full">
+                        {database}
+                      </button>
+                    </a>
+                  </td>
 
-                  {props.show.delete === true && (
-                    <TableCell align="right" sx={TableCellStyle}>
+                  <Show when={props.show.delete === true}>
+                    <td class="w-1/6 p-2">
                       <DeleteDatabase database={database} />
-                    </TableCell>
-                  )}
-                </TableRow>
+                    </td>
+                  </Show>
+                </tr>
               )
             }}
           </For>
-        </TableBody>
-      </Table>
-    </TableContainer>
+        </tbody>
+      </table>
+    </div>
   )
 }
 

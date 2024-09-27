@@ -18,13 +18,13 @@ const Home: Component<DataHome> = (props) => {
 
       <div class="divider my-6" />
 
-      {/* <ShowDatabases
-        databases={databases()}
+      <ShowDatabases
+        databases={databases()!}
         show={{
           create: props.options.readOnly === false,
           delete: props.options.noDelete === false && props.options.readOnly === false
         }}
-      /> */}
+      />
 
       <div class="mb-8">
         <Show

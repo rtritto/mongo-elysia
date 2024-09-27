@@ -1,12 +1,6 @@
-import {
-  Button, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, SvgIcon, TextField
-  /* TODO , Tooltip*/
-} from '@suid/material'
-import type OutlinedInputProps from '@suid/material/OutlinedInput/OutlinedInputProps'
 import { type Component, createSignal } from 'solid-js'
 
-import { DeleteIcon } from './../Icons/index'
-import CustomDialog from './CustomDialog'
+import { DeleteIcon } from '@/components/Icons'
 
 const DeleteDialog: Component<{
   value: string
@@ -14,93 +8,64 @@ const DeleteDialog: Component<{
   tooltipTitle: string
   handleDelete: (input: string) => void
 }> = (props) => {
-  const [open, setOpen] = createSignal(false)
   const [input, setInput] = createSignal('')
 
-  const handleOpen = () => { setOpen(true) }
-  const handleClose = () => { setOpen(false) }
-
-  const handleOnChange = (event: OutlinedInputProps['onChange']) => {
-    setInput(event.currentTarget.value)
-  }
+  let modalRef: HTMLDialogElement | undefined
 
   return (
     <>
-      {/* <Tooltip title={props.tooltipTitle}> */}
-      <Button
-        onClick={handleOpen}
-        startIcon={<DeleteIcon />}
-        value={props.value}
-        variant="contained"
-        sx={{
-          backgroundColor: 'rgb(108, 49, 47)',
-          flexDirection: 'column',
-          // px: 4,
-          py: 0.5,
-          textTransform: 'none'
-        }}
-      >
-        Del
-      </Button>
-      {/* </Tooltip> */}
+      <button class="btn btn-error w-full text-xs font-bold text-white" onClick={() => modalRef!.showModal()}>
+        <DeleteIcon />
 
-      {open() === true && (
-        <CustomDialog disableBackdropClick disableEscapeKeyDown open={open()} onClose={handleClose}>
-          <DialogTitle>
+        Delete
+      </button>
+
+      <dialog id="my_modal" class="modal" ref={modalRef}>
+        <div class="modal-box">
+          <label for="my-modal-4" class="btn btn-circle btn-sm absolute right-2 top-2" onClick={() => modalRef!.close()}>✕</label>
+
+          <h3 class="mb-4 text-xl font-bold">
             Delete {props.entity}
-          </DialogTitle>
+          </h3>
 
-          <Divider />
+          <div class="divider" />
 
-          <DialogContent>
-            <DialogContentText>
-              You are about to delete whole <strong>{props.value}</strong> {props.entity}.
-            </DialogContentText>
+          <div class="mb-4">
+            <p>Type <strong>{props.value}</strong> to delete that {props.entity}.</p>
 
-            <TextField
-              autoFocus
-              fullWidth
-              margin="dense"
-              onChange={handleOnChange}
+            <input
+              type="text"
+              class="input input-bordered mt-2 w-full"
+              onInput={(event) => setInput(event.target.value)}
               placeholder={props.value}
-              size="small"
-              type="string"
               value={input()}
-              variant="outlined"
-              sx={{ pl: 0.5 }}
+              autofocus
             />
-          </DialogContent>
+          </div>
 
-          <Divider />
+          <div class="divider" />
 
-          <DialogActions>
-            <Button
-              id="delete"
-              onClick={() => {
-                props.handleDelete(input())
-                handleClose()
-                setInput('')  // Reset value
-              }}
-              disabled={input() !== props.value}
-              size="small"
-              value={props.value}
-              variant="contained"
-              sx={{ backgroundColor: 'rgb(108, 49, 47)', m: 1 }}
-            >
-              Delete
-            </Button>
+          <button
+            class="btn btn-error btn-sm mx-1"
+            disabled={input() !== props.value}
+            onClick={() => {
+              setInput('') // Reset value
+              props.handleDelete(input())
+              modalRef!.close()
+            }}
+          >
+            Delete
+          </button>
 
-            <Button
-              onClick={handleClose}
-              size="small"
-              variant="contained"
-              sx={{ m: 1 }}
-            >
-              Cancel
-            </Button>
-          </DialogActions>
-        </CustomDialog>
-      )}
+          <button class="btn btn-primary btn-sm mx-1" onClick={() => modalRef!.close()}>
+            Cancel
+          </button>
+        </div>
+
+        <form method="dialog" class="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
     </>
   )
 }
