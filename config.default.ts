@@ -168,7 +168,7 @@ const getConfigDefault = () => ({
 })
 
 export type MongoDb = ReturnType<typeof getMongoDB> & {
-  connectionName: string | undefined
+  // ? TODO REMOVE (not used) connectionName: string | undefined
   whitelist: string[]
   blacklist: string[]
 }
