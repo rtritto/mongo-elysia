@@ -3,112 +3,127 @@ import { bytesToSize, convertBytes } from './mapUtils'
 const EMPTY_COLLECTION_SIZE = 4096
 
 // TODO add global lock time stats and replica set stats
-export const mapServerStatus = (serverStatus: ServerStatus) => ({
-  dbHost: {
-    label: 'Hostname',
-    value: serverStatus.host
-  },
-  dbVersion: {
-    label: 'MongoDB Version',
-    value: serverStatus.version
-  },
-  uptime: {
-    label: 'Uptime',
-    value: `${serverStatus.uptime} seconds ${serverStatus.uptime > 86400
-      ? `(${Math.floor(serverStatus.uptime / 86400)} days)`
-      : ''}`
-  },
-  nodeVersion: {
-    label: 'Node Version',
-    value: process.versions.node
-  },
-  serverTime: {
-    label: 'Server Time',
-    value: serverStatus.localTime.toUTCString()
-  },
-  v8Version: {
-    label: 'V8 Version',
-    value: process.versions.v8
-  },
-  currentConnections: {
-    label: 'Current Connections',
-    value: serverStatus.connections.current
-  },
-  availableConnections: {
-    label: 'Available Connections',
-    value: serverStatus.connections.available
-  },
-  ...'globalLock' in serverStatus && {
-    ...'activeClients' in serverStatus.globalLock && {
-      activeClients: {
-        label: 'Active Clients',
-        value: serverStatus.globalLock.activeClients.total
-      },
-      clientsReading: {
-        label: 'Clients Reading',
-        value: serverStatus.globalLock.activeClients.readers
-      },
-      clientsWriting: {
-        label: 'Clients Writing',
-        value: serverStatus.globalLock.activeClients.writers
-      }
+export const mapServerStatus = (serverStatus: ServerStatus) => [
+  [
+    {
+      label: 'Hostname',
+      value: serverStatus.host
     },
-    ...'currentQueue' in serverStatus.globalLock && {
-      queuedOperations: {
-        label: 'Queued Operations',
-        value: serverStatus.globalLock.currentQueue.total
-      },
-      readLockQueue: {
-        label: 'Read Lock Queue',
-        value: serverStatus.globalLock.currentQueue.readers
-      },
-      writeLockQueue: {
-        label: 'Write Lock Queue',
-        value: serverStatus.globalLock.currentQueue.writers
-      }
+    {
+      label: 'MongoDB Version',
+      value: serverStatus.version
     }
-  },
-  /* deprecated? */ ...'backgroundFlushing' in serverStatus && {
-    diskFlushes: {
-      label: 'Disk Flushes',
-      value: serverStatus.backgroundFlushing.flushes
+  ],
+  [
+    {
+      label: 'Uptime',
+      value: `${serverStatus.uptime} seconds ${serverStatus.uptime > 86400
+        ? `(${Math.floor(serverStatus.uptime / 86400)} days)`
+        : ''}`
     },
-    ...'last_finished' in serverStatus.backgroundFlushing && {
-      lastFlush: {
-        label: 'Last Flush',
-        value: serverStatus.backgroundFlushing.last_finished.toDateString()
-      }
-    },
-    ...'total_ms' in serverStatus.backgroundFlushing && {
-      timeSpentFlushing: {
-        label: 'Time Spent Flushing',
-        value: `${serverStatus.backgroundFlushing.total_ms} ms`
-      }
-    },
-    ...'average_ms' in serverStatus.backgroundFlushing && {
-      averageFlushTime: {
-        label: 'Average Flush Time',
-        value: `${serverStatus.backgroundFlushing.average_ms} ms`
-      }
+    {
+      label: 'Node Version',
+      value: process.versions.node
     }
-  },
-  totalInserts: {
-    label: 'Total Inserts',
-    value: serverStatus.opcounters.insert
-  },
-  totalQueries: {
-    label: 'Total Queries',
-    value: serverStatus.opcounters.query
-  },
-  totalUpdates: {
-    label: 'Total Updates',
-    value: serverStatus.opcounters.update
-  },
-  totalDeletes: {
-    label: 'Total Deletes',
-    value: serverStatus.opcounters.delete
-  }
-})
+  ],
+  [
+    {
+      label: 'Server Time',
+      value: serverStatus.localTime.toUTCString()
+    },
+    {
+      label: 'V8 Version',
+      value: process.versions.v8
+    }
+  ],
+  [
+    {
+      label: 'Current Connections',
+      value: serverStatus.connections.current
+    },
+    {
+      label: 'Available Connections',
+      value: serverStatus.connections.available
+    }
+  ],
+  [
+    {
+      label: 'Total Inserts',
+      value: serverStatus.opcounters.insert
+    },
+    {
+      label: 'Total Queries',
+      value: serverStatus.opcounters.query
+    }
+  ],
+  [
+    {
+      label: 'Total Updates',
+      value: serverStatus.opcounters.update
+    },
+    {
+      label: 'Total Deletes',
+      value: serverStatus.opcounters.delete
+    }
+  ]
+]
+
+export type ServerStatusFields = ReturnType<typeof mapServerStatus>
+
+// ...'globalLock' in serverStatus && {
+//   ...'activeClients' in serverStatus.globalLock && {
+//     activeClients: {
+//       label: 'Active Clients',
+//       value: serverStatus.globalLock.activeClients.total
+//     },
+//     clientsReading: {
+//       label: 'Clients Reading',
+//       value: serverStatus.globalLock.activeClients.readers
+//     },
+//     clientsWriting: {
+//       label: 'Clients Writing',
+//       value: serverStatus.globalLock.activeClients.writers
+//     }
+//   },
+//   ...'currentQueue' in serverStatus.globalLock && {
+//     queuedOperations: {
+//       label: 'Queued Operations',
+//       value: serverStatus.globalLock.currentQueue.total
+//     },
+//     readLockQueue: {
+//       label: 'Read Lock Queue',
+//       value: serverStatus.globalLock.currentQueue.readers
+//     },
+//     writeLockQueue: {
+//       label: 'Write Lock Queue',
+//       value: serverStatus.globalLock.currentQueue.writers
+//     }
+//   }
+// },
+// /* deprecated? */ ...'backgroundFlushing' in serverStatus && {
+//   diskFlushes: {
+//     label: 'Disk Flushes',
+//     value: serverStatus.backgroundFlushing.flushes
+//   },
+//   ...'last_finished' in serverStatus.backgroundFlushing && {
+//     lastFlush: {
+//       label: 'Last Flush',
+//       value: serverStatus.backgroundFlushing.last_finished.toDateString()
+//     }
+//   },
+//   ...'total_ms' in serverStatus.backgroundFlushing && {
+//     timeSpentFlushing: {
+//       label: 'Time Spent Flushing',
+//       value: `${serverStatus.backgroundFlushing.total_ms} ms`
+//     }
+//   },
+//   ...'average_ms' in serverStatus.backgroundFlushing && {
+//     averageFlushTime: {
+//       label: 'Average Flush Time',
+//       value: `${serverStatus.backgroundFlushing.average_ms} ms`
+//     }
+//   }
+// }
 
 export const mapDatabaseStats = (dbStats: DbStats) => ({
   avgObjSize: {

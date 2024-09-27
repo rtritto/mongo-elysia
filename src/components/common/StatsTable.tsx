@@ -1,54 +1,36 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@suid/material'
-import { Component } from 'solid-js'
+import { type Component, For } from 'solid-js'
 
-const getRowsComponent = (fields: Fields) => {
-  const outRaw = []
-  for (const cell in fields) {
-    outRaw.push([
-      <TableCell>
-        <strong>{fields[cell].label}</strong>
-      </TableCell>,
-      <TableCell>
-        {fields[cell].value}
-      </TableCell>
-    ])
-  }
-  const out = []
-  for (let index = 0, length_ = outRaw.length; index < length_; index += 2) {
-    const tableRow = [
-      ...outRaw[index]
-    ]
-    if (index + 1 < length_) {
-      tableRow.push(...outRaw[index + 1])
-    }
-    out.push(
-      <TableRow>
-        {tableRow}
-      </TableRow>
-    )
-  }
-  return out
-}
+import type { ServerStatusFields } from '@/utils/mappers/mapInfo'
 
-const StatsTable: Component<{ label: string, fields: Fields }> = (props) => {
+const StatsTable: Component<{ label: string, fields: ServerStatusFields }> = (props) => {
   return (
-    <TableContainer component={Paper}>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell colSpan={4}>
-              <Typography component='h6' variant='h6' sx={{ fontWeight: 'bold', pt: 0.5 }}>
-                {props.label}
-              </Typography>
-            </TableCell>
-          </TableRow>
-        </TableHead>
+    <div class="overflow-x-auto rounded-lg bg-base-100 shadow-lg">
+      <table class="table w-full">
+        <thead>
+          <tr>
+            <th colSpan={4} class="py-2 text-lg font-bold">
+              {props.label}
+            </th>
+          </tr>
+        </thead>
 
-        <TableBody>
-          {getRowsComponent(props.fields)}
-        </TableBody>
-      </Table>
-    </TableContainer>
+        <tbody>
+          <For each={props.fields}>{
+            (field) => (
+              <tr class="odd:bg-gray-700 even:bg-gray-800">
+                <td class="p-2 text-right"><strong>{field[0].label}</strong></td>
+
+                <td class="p-2">{field[0].value}</td>
+
+                <td class="p-2 text-right"><strong>{field[1].label}</strong></td>
+
+                <td class="p-2">{field[1].value}</td>
+              </tr>
+            )
+          }</For>
+        </tbody>
+      </table>
+    </div>
   )
 }
 

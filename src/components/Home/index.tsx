@@ -4,7 +4,6 @@ import { useAtom } from 'solid-jotai'
 import StatsTable from '../common/StatsTable'
 import ShowDatabases from './ShowDatabases'
 import { databasesState, messageErrorState, messageSuccessState } from '@/stores/globalAtoms'
-import { DataHome } from '@/types/Data'
 
 const Home: Component<DataHome> = (props) => {
   const [databases, setDatabases] = useAtom(databasesState)
@@ -19,7 +18,6 @@ const Home: Component<DataHome> = (props) => {
 
       <div class="divider my-6" />
 
-      {databases()}
       {/* <ShowDatabases
         databases={databases()}
         show={{
@@ -29,7 +27,7 @@ const Home: Component<DataHome> = (props) => {
       /> */}
 
       <div class="mb-8">
-        {/* <Show
+        <Show
           when={props.serverStatus}
           fallback={(
             <>
@@ -40,7 +38,7 @@ const Home: Component<DataHome> = (props) => {
           )}
         >
           <StatsTable label="Server Status" fields={props.serverStatus} />
-        </Show> */}
+        </Show>
       </div>
     </div>
   )
