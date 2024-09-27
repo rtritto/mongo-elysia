@@ -3,15 +3,9 @@ import { type Component, For, Show } from 'solid-js'
 
 import { EP_DB } from '@/configs/endpoints'
 import { VisibilityIcon } from './../Icons/index'
-import CustomLink from '../common/CustomLink'
 import CreateDatabase from './CreateDatabase'
 import DeleteDatabase from './DeleteDatabase'
 import { selectedDatabaseState } from '@/stores/globalAtoms'
-
-const TableCellStyle = {
-  // border: 1,
-  p: 0.5
-}
 
 const ShowDatabases: Component<{
   databases: string[]
