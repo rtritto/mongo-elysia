@@ -1,80 +1,73 @@
-// TODO import { Box, Button, FormGroup, SvgIcon, TextField } from '@suid/material'
-// TODO import { useForm, Controller } from 'react-hook-form'
-import { useSetAtom } from 'solid-jotai'
-import { createSignal } from 'solid-js'
+import { useAtom, useSetAtom } from 'solid-jotai'
+import { createSignal, Show } from 'solid-js'
 
 import { EP_API_DB } from '@/configs/endpoints'
 import { databasesState, messageErrorState, messageSuccessState } from '@/stores/globalAtoms'
+import { isValidDatabaseName } from '@/utils/validations'
 import { AddIcon } from './../Icons/index'
-// import { isValidDatabaseName } from 'lib/validations'
 
 const CreateDatabase = () => {
-  const [database, setDatabase] = createSignal('')
-  const setDatabases = useSetAtom(databasesState)
+  const [inputDatabase, setInputDatabase] = createSignal('')
+  const [isDatabaseValid, setIsDatabaseValid] = createSignal(false)
+  const [databaseValidationError, setDatabaseValidationError] = createSignal<string>()
+  const [databases, setDatabases] = useAtom(databasesState)
   const setSuccess = useSetAtom(messageSuccessState)
   const setError = useSetAtom(messageErrorState)
-  // const methods = useForm({ mode: 'onChange' })
-
-  const handleCreateDatabase = async () => {
-    await fetch(EP_API_DB, {
-      method: 'POST',
-      body: JSON.stringify({ database: database() }),
-      headers: { 'Content-Type': 'application/json' }
-    }).then(async (res) => {
-      if (res.ok === true) {
-        // Add database to global databases to update viewing databases
-        setDatabases((databases) => [...databases, database()].sort())
-        setSuccess(`Database "${database()}" created!`)
-        setDatabase('')  // Reset value
-      } else {
-        const { error } = await res.json()
-        setError(error)
-      }
-    }).catch((error) => { setError(error.message) })
-  }
 
   return (
     <>
-      {/* <FormGroup>
-        <Box>
-          <Controller
-            control={methods.control}
-            name="controllerCreateDatabase"
-            render={({ field: { onChange } }) => (
-              <TextField
-                id="database"
-                error={database() !== '' && 'controllerCreateDatabase' in methods.formState.errors}
-                helperText={database() !== '' && (methods.formState.errors.controllerCreateDatabase?.message || '')}
-                name="database"
-                onChange={({ target: { value } }) => {
-                  setDatabase(value)
-                  onChange(value)
-                }}
-                placeholder="Database name"
-                required
-                size="small"
-                type="string"
-                value={database()}
-                variant="outlined"
-              // sx={{ paddingBottom: 0 }}
-              />
-            )}
-            rules={{ validate: (value) => isValidDatabaseName(value).error }}
-          />
+      <form
+        onSubmit={async () => {
+          try {
+            const res = await fetch(EP_API_DB, {
+              method: 'POST',
+              body: JSON.stringify({ database: inputDatabase() }),
+              headers: { 'Content-Type': 'application/json' }
+            })
+            if (res.ok === true) {
+              // Add database to global databases to update viewing databases
+              setDatabases([...databases()!, inputDatabase()].sort())
+              setSuccess(`Database "${inputDatabase()}" created!`)
+              setInputDatabase('')  // Reset value
+            } else {
+              const { error } = await res.json()
+              setError(error)
+            }
+          } catch (error) {
+            setError((error as Error).message)
+          }
+        }}
+      >
+        <div class="join flex justify-between">
+          <div class="join-item">
+            <input
+              type="text"
+              class={`input input-sm input-bordered${databaseValidationError() === undefined ? '' : ' input-error'} join-item w-full`}
+              onInput={(event) => {
+                setInputDatabase(event.target.value)
+                const { error } = isValidDatabaseName(event.target.value)
+                if (error === undefined) {
+                  setIsDatabaseValid(true)
+                  setDatabaseValidationError()
+                } else {
+                  setIsDatabaseValid(false)
+                  setDatabaseValidationError(error)
+                }
+              }}
+              placeholder="Database name"
+              value={inputDatabase()}
+            />
 
-          <Button
-            disabled={!database() || 'controllerCreateDatabase' in methods.formState.errors}
-            size="small"
-            startIcon={<AddIcon />}
-            // type="submit"
-            variant="contained"
-            onClick={handleCreateDatabase}
-            sx={{ textTransform: 'none', py: 1 }}
-          >
-            Create Database
-          </Button>
-        </Box>
-      </FormGroup> */}
+            <div class="label pb-0 pt-1">
+              <span class={`label-text-alt${databaseValidationError() === undefined ? '' : ' text-red-300'}`}>{databaseValidationError() || ' '}</span>
+            </div>
+          </div>
+
+          <button class="btn join-item btn-sm bg-blue-600 hover:bg-blue-700" type="submit" disabled={inputDatabase() === '' || isDatabaseValid() === false}>
+            <AddIcon />Create Database
+          </button>
+        </div>
+      </form>
     </>
   )
 }

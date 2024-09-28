@@ -15,9 +15,7 @@ const DeleteDialog: Component<{
   return (
     <>
       <button class="btn btn-error w-full text-xs font-bold text-white" onClick={() => modalRef!.showModal()}>
-        <DeleteIcon />
-
-        Delete
+        <DeleteIcon />Delete
       </button>
 
       <dialog id="my_modal" class="modal" ref={modalRef}>
@@ -47,6 +45,7 @@ const DeleteDialog: Component<{
 
           <button
             class="btn btn-error btn-sm mx-1"
+            type="submit"
             disabled={input() !== props.value}
             onClick={() => {
               setInput('') // Reset value

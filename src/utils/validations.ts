@@ -1,4 +1,4 @@
-import { toBSON } from './bson'
+// import { toBSON } from './bson'
 
 export const isValidCollectionName = (name: string) => {
   // if (name === undefined || name.length === 0) {
@@ -51,13 +51,13 @@ export const checkCollection = (dbName: string, collectionName: string) => {
   }
 }
 
-export const checkDocument = (document: string) => {
-  try {
-    return toBSON(document)
-  } catch {
-    throw new Error('That document in request body is not valid!')
-  }
-}
+// export const checkDocument = (document: string) => {
+//   try {
+//     return toBSON(document)
+//   } catch {
+//     throw new Error('That document in request body is not valid!')
+//   }
+// }
 
 export const checkOption = (option: string, value: any) => {
   if (global.config.options[option] === value) {

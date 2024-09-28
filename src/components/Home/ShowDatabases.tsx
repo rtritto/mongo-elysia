@@ -21,15 +21,14 @@ const ShowDatabases: Component<{
       <table class="table w-full">
         <thead>
           <tr>
-            <th class="py-2 text-left text-lg font-bold">
+            <th class="py-1 text-left text-lg font-bold">
               Databases
             </th>
 
-            <th class="py-2 text-right text-lg font-bold" colspan="2">
+            <th class="py-1 text-right text-lg font-bold" colspan="2">
               <div class="flex justify-end">
                 <Show when={props.show.create === true}>
-                  CreateDatabase
-                  {/* <CreateDatabase /> */}
+                  <CreateDatabase />
                 </Show>
               </div>
             </th>
@@ -45,15 +44,13 @@ const ShowDatabases: Component<{
               const hrefView = `${EP_DB}/${encodedDatabase}`
               return (
                 <tr class="container hover flex items-center justify-between">
-                  <td class="w-1/6 p-2">
+                  <td class="w-1/6 p-1">
                     <a href={hrefView} class="btn btn-success w-full text-xs font-bold text-white">
-                      <VisibilityIcon />
-
-                      View
+                      <VisibilityIcon />View
                     </a>
                   </td>
 
-                  <td class="w-full p-2">
+                  <td class="w-full p-1">
                     <a href={hrefView} class="text-lg font-semibold no-underline" onClick={() => setSelectedDatabaseState(database)}>
                       <button class="btn w-full">
                         {database}
@@ -62,7 +59,7 @@ const ShowDatabases: Component<{
                   </td>
 
                   <Show when={props.show.delete === true}>
-                    <td class="w-1/6 p-2">
+                    <td class="w-1/6 p-1">
                       <DeleteDatabase database={database} />
                     </td>
                   </Show>
