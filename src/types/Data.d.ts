@@ -1,7 +1,7 @@
 type DataHome = {
   databases: typeof global.mongo.databases
   options: typeof global.config.options
-  serverStatus?: import('@/utils/mappers/mapInfo').ServerStatusFields
+  isAdminDb: boolean
 }
 
 type DataDatabase = {

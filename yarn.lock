@@ -3684,6 +3684,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"elysia-autoload@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "elysia-autoload@npm:1.4.0"
+  peerDependencies:
+    elysia: ^1.1.0
+  checksum: 10c0/e0a5dc704df305a336ff0f57c67eac375036e8325f6675986f0b0cd0f7bf41fb53b33993a0f7281ce014466348b11e1edfd245abb828e5265ae9fe0a766412e7
+  languageName: node
+  linkType: hard
+
 "elysia@npm:^1.1.17":
   version: 1.1.17
   resolution: "elysia@npm:1.1.17"
@@ -5899,6 +5908,7 @@ __metadata:
     bson: "npm:^6.8.0"
     daisyui: "npm:^4.12.10"
     elysia: "npm:^1.1.17"
+    elysia-autoload: "npm:^1.4.0"
     eslint: "npm:^8.57.1"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-import-resolver-typescript: "npm:^3.6.3"

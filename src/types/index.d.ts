@@ -18,6 +18,8 @@ type Redirect = import('next').Redirect
 type Config = import('./../config.default.mts').Config
 type MongoDb = import('./../config.default.mts').MongoDb
 
+type ElysiaApp = import('../server').ElysiaApp
+
 type PrimitiveTypes = boolean | string | number
 
 type CustomApiError = (unknown | Error) & {

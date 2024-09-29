@@ -1,6 +1,6 @@
-import { type Component, Show } from 'solid-js'
+import { type Component } from 'solid-js'
 
-import StatsTable from '../common/StatsTable'
+import ServerStatus from './ServerStatus'
 import ShowDatabases from './ShowDatabases'
 import { messageErrorState, messageSuccessState } from '@/stores/globalAtoms'
 
@@ -18,20 +18,7 @@ const Home: Component<DataHome> = (props) => {
         }}
       />
 
-      <div class="mb-8">
-        <Show
-          when={props.serverStatus}
-          fallback={(
-            <>
-              <h4 class="mb-4 text-2xl font-bold">Server Status</h4>
-
-              <p>Turn on admin in <b>config.js</b> to view server stats!</p>
-            </>
-          )}
-        >
-          <StatsTable label="Server Status" fields={props.serverStatus!} />
-        </Show>
-      </div>
+      <ServerStatus isAdminDb={props.isAdminDb} />
     </div>
   )
 }

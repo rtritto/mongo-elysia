@@ -1,7 +1,7 @@
 import type { Component } from 'solid-js'
 
 import IconTemplate, { type IconProps } from './IconTemplate'
-import { Add, Apps, Close, Delete, Edit, FileUpload, Hamburger, Home, Info, PlayCircleFilledOutlined, Save, Visibility } from './SvgBase64'
+import { Add, Apps, Close, Delete, Edit, FileUpload, Hamburger, Home, Info, PlayCircleFilledOutlined, Save, Sync, Visibility } from './SvgBase64'
 
 const a = { viewBox: '0 0 24 24' }
 
@@ -26,5 +26,7 @@ export const InfoIcon: Component<IconProps> = (props) => IconTemplate({ a, c: `<
 export const PlayCircleFilledOutlinedIcon: Component<IconProps> = (props) => IconTemplate({ a, c: `<path d="${PlayCircleFilledOutlined}"/>` }, props)
 
 export const SaveIcon: Component<IconProps> = (props) => IconTemplate({ a, c: `<path d="${Save}"/>` }, props)
+
+export const SyncIcon: Component<IconProps> = (props) => IconTemplate({ a, c: `<path d="${Sync}"/>` }, props)
 
 export const VisibilityIcon: Component<IconProps> = (props) => IconTemplate({ a, c: `<path d="${Visibility}"/>` }, props)

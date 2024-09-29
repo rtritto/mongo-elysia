@@ -21,11 +21,11 @@ const ShowDatabases: Component<{
       <table class="table w-full">
         <thead>
           <tr>
-            <th class="py-1 text-left text-lg font-bold">
+            <th class="py-1 text-lg font-bold">
               Databases
             </th>
 
-            <th class="py-1 text-right text-lg font-bold" colspan="2">
+            <th class="py-1 text-lg font-bold" colspan="2">
               <div class="flex justify-end">
                 <Show when={props.show.create === true}>
                   <CreateDatabase />
