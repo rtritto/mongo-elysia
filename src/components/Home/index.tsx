@@ -1,6 +1,7 @@
 import { type Component } from 'solid-js'
 
-import ServerStatus from './ServerStatus'
+import { EP_API_DB } from '@/configs/endpoints'
+import StatsTable from '@/components/common/StatsTable'
 import ShowDatabases from './ShowDatabases'
 import { messageErrorState, messageSuccessState } from '@/stores/globalAtoms'
 
@@ -18,7 +19,14 @@ const Home: Component<DataHome> = (props) => {
         }}
       />
 
-      <ServerStatus isAdminDb={props.isAdminDb} />
+      <div class="mb-8">
+        <StatsTable
+          label="Server Status"
+          isEnabled={props.isAdminDb}
+          endpoint={`${EP_API_DB}/stats`}
+          fallback={<p>Turn on admin in <b>config.js</b> to view server stats!</p>}
+        />
+      </div>
     </div>
   )
 }
