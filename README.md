@@ -25,9 +25,16 @@ A web-based MongoDB admin interface written with Node.js, Express, and Bootstrap
 
 ## Screenshots
 
-| Home Page                                                                      | Database View                                                                                    | Collection View                                                                       | Editing A Document                                                     |
-| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+<details>
+  <summary>Show screenshots</summary>
+
+| Home Page | Database View | Collection View | Editing A Document |
+|-|-|-|-|
 | <img src="http://i.imgur.com/XiYhblA.png" title="Home Page showing databases"> | <img src="http://i.imgur.com/XWcIgY1.png" title="Viewing collections & buckets in a database" /> | <img src="https://imgur.com/UmGSr3x.png" title="Viewing documents in a collection" /> | <img src="https://imgur.com/lL38abn.png" title="Editing a document" /> |
+
+</details>
+
+<br />
 
 These screenshots are from version 0.30.40
 View the album for more screenshots: (server status, database views, etc..)
@@ -376,3 +383,7 @@ Here is an example of a document which can be read/edited in mongo-express (medi
       "func": Code(function() { alert('Hello World!') }),
       "symbol": Symbol("test")
     }
+
+## TODO
+
+- Remove `@types/node` dev depenency after `@types/node` dependency in `bun-types` is updated from v20 to v22
