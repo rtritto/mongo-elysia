@@ -2395,6 +2395,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-core@npm:5.56.2":
+  version: 5.56.2
+  resolution: "@tanstack/query-core@npm:5.56.2"
+  checksum: 10c0/54ff55f02b01f6ba089f4965bfd46f430c18ce7e11d874de04c4d58cc8f698598b41e1c017ba029d08ae75e321e546b26f1ea7f788474db265eeba46e780f2f6
+  languageName: node
+  linkType: hard
+
+"@tanstack/solid-query@npm:^5.56.2":
+  version: 5.56.2
+  resolution: "@tanstack/solid-query@npm:5.56.2"
+  dependencies:
+    "@tanstack/query-core": "npm:5.56.2"
+  peerDependencies:
+    solid-js: ^1.6.0
+  checksum: 10c0/7e7667b1c4ca69146c8aa593aa1351a0f93744717e07745b706526f2e3a5aff8fc5fb8933e5963cf05fc9c47efc4c4577a5a31e7713615a59e0dd62f495c2e64
+  languageName: node
+  linkType: hard
+
 "@types/babel__core@npm:^7.20.4":
   version: 7.20.5
   resolution: "@types/babel__core@npm:7.20.5"
@@ -3666,9 +3684,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"elysia@npm:^1.1.16":
-  version: 1.1.16
-  resolution: "elysia@npm:1.1.16"
+"elysia@npm:^1.1.17":
+  version: 1.1.17
+  resolution: "elysia@npm:1.1.17"
   dependencies:
     "@sinclair/typebox": "npm:0.32.34"
     cookie: "npm:^0.6.0"
@@ -3683,7 +3701,7 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  checksum: 10c0/c74a45a6e914636313d0d7ca509742e9e618bb7389a6407f314546f534ac4ed38908cacdcf5114e8cca8f76fb9bbd0267f83a38fe8fccaf981884e35ccfccc72
+  checksum: 10c0/2466f4de57262b2cd3c129a548778fe3ed693259aebef4145bfc5e300ba6f2206d61bae9e96dddf3f29b5b1b091e557f5290886387aa0c2222cc31ed1fe88599
   languageName: node
   linkType: hard
 
@@ -5871,6 +5889,7 @@ __metadata:
   resolution: "mongo-elysia@workspace:."
   dependencies:
     "@elysiajs/cors": "npm:^1.1.1"
+    "@tanstack/solid-query": "npm:^5.56.2"
     "@types/bun": "npm:^1.1.10"
     "@types/eslint": "npm:^8.56.12"
     "@types/node": "npm:^22.7.4"
@@ -5879,7 +5898,7 @@ __metadata:
     autoprefixer: "npm:^10.4.20"
     bson: "npm:^6.8.0"
     daisyui: "npm:^4.12.10"
-    elysia: "npm:^1.1.16"
+    elysia: "npm:^1.1.17"
     eslint: "npm:^8.57.1"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-import-resolver-typescript: "npm:^3.6.3"
@@ -5897,7 +5916,8 @@ __metadata:
     typescript: "npm:5.5.4"
     vike: "npm:^0.4.197"
     vike-node: "npm:^0.1.16"
-    vike-solid: "npm:^0.7.5"
+    vike-solid: "npm:^0.7.6"
+    vike-solid-query: "npm:^0.1.0"
     vite: "npm:^5.4.8"
     vite-plugin-pwa: "npm:^0.20.5"
   languageName: unknown
@@ -7971,9 +7991,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vike-solid@npm:^0.7.5":
-  version: 0.7.5
-  resolution: "vike-solid@npm:0.7.5"
+"vike-solid-query@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "vike-solid-query@npm:0.1.0"
+  peerDependencies:
+    "@tanstack/solid-query": ">=5.0.0"
+    solid-js: ^1.8.7
+    vike-solid: ^0.7.6
+  checksum: 10c0/43940c21a84f6468a8ef7bc20286b0ba30256ea2e31433087a7053c51b8ba6240a4ebe92356714fa09551dbca4f0abdee7e1d2639800b1baeb7065495ca52640
+  languageName: node
+  linkType: hard
+
+"vike-solid@npm:^0.7.6":
+  version: 0.7.6
+  resolution: "vike-solid@npm:0.7.6"
   dependencies:
     isbot-fast: "npm:^1.2.0"
     vite-plugin-solid: "npm:^2.10.2"
@@ -7981,7 +8012,7 @@ __metadata:
     solid-js: ^1.8.7
     vike: ">=0.4.195"
     vite: ">=5.0.0"
-  checksum: 10c0/b287dc4f3386590f503ff2dfaf15a0c0d7559ed25015b9fafb17e4f988efe0678f5981255dd1f9df2a154baf6cf5266246a1692e2d6139298c1007ae7b8f3d22
+  checksum: 10c0/be630c66386c522dab82ae02aa536aef70cfdf5c7179f7e86071db4914cfa6511cffea55395c5a16bb24865533ce1e1b153c3cfff16399a771ded5c4ee89ff1c
   languageName: node
   linkType: hard
 
