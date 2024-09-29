@@ -386,4 +386,5 @@ Here is an example of a document which can be read/edited in mongo-express (medi
 
 ## TODO
 
+- Add button to show/reload status info
 - Remove `@types/node` dev depenency after `@types/node` dependency in `bun-types` is updated from v20 to v22

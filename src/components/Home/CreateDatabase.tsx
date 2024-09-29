@@ -1,5 +1,5 @@
 import { useAtom, useSetAtom } from 'solid-jotai'
-import { createSignal, Show } from 'solid-js'
+import { createSignal } from 'solid-js'
 
 import { EP_API_DB } from '@/configs/endpoints'
 import { databasesState, messageErrorState, messageSuccessState } from '@/stores/globalAtoms'

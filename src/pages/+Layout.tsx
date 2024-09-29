@@ -29,12 +29,12 @@ export const Layout: Component<{ children: JSXElement }> = (props) => {
           })()}
         >
           <NavBar />
+
+          <main class="relative">
+            {props.children}
+          </main>
         </HydrateAtoms>
       </Provider>
-
-      <main class="relative">
-        {props.children}
-      </main>
     </div>
   )
 }

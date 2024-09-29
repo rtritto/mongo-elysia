@@ -1,19 +1,19 @@
-import { useSetAtom } from 'solid-jotai'
+import { useAtomValue, useSetAtom } from 'solid-jotai'
 import { type Component, For, Show } from 'solid-js'
 
 import { EP_DB } from '@/configs/endpoints'
 import { VisibilityIcon } from './../Icons/index'
 import CreateDatabase from './CreateDatabase'
 import DeleteDatabase from './DeleteDatabase'
-import { selectedDatabaseState } from '@/stores/globalAtoms'
+import { databasesState, selectedDatabaseState } from '@/stores/globalAtoms'
 
 const ShowDatabases: Component<{
-  databases: string[]
   show: {
     create: boolean
     delete: boolean
   }
 }> = (props) => {
+  const databases = useAtomValue(databasesState)
   const setSelectedDatabaseState = useSetAtom(selectedDatabaseState)
 
   return (
@@ -38,7 +38,7 @@ const ShowDatabases: Component<{
 
       <table class="table w-full">
         <tbody>
-          <For each={props.databases}>
+          <For each={databases()}>
             {(database) => {
               const encodedDatabase = encodeURIComponent(database)
               const hrefView = `${EP_DB}/${encodedDatabase}`
