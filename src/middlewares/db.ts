@@ -72,8 +72,7 @@ const getMongo = () => ({
                 continue
               }
               this.addConnection(clientInfo, clientInfo.client.db(dbName), dbName)
-              // const connection = 
-              // eslint-disable-next-line no-await-in-loop
+              // const connection =
               // await this.updateCollections(connection)
             }
           }

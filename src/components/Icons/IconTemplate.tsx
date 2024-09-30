@@ -23,7 +23,7 @@ interface IconBaseProps extends IconProps {
 
 export default function IconTemplate(iconSrc: IconTree, props: IconProps): JSX.Element {
   const mergedProps = mergeProps(iconSrc.a, props) as IconBaseProps
-  const [_, svgProps] = splitProps(mergedProps, ['src'])
+  const svgProps = splitProps(mergedProps, ['src']).at(1)
   const [content, setContent] = createSignal<string>('')
   const rawContent = createMemo(() =>
     props.title ? `${iconSrc.c}<title>${props.title}</title>` : iconSrc.c

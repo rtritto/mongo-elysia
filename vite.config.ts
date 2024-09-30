@@ -4,7 +4,7 @@ import vikeSolid from 'vike-solid/vite'
 import { defineConfig, loadEnv } from 'vite'
 import tailwindcss from 'tailwindcss'
 import autoprefixer from 'autoprefixer'
-import { resolve } from 'node:path'
+import path from 'node:path'
 
 import getGlobalConfig from './config.default'
 import getMongo from '@/middlewares/db'
@@ -46,7 +46,7 @@ export default defineConfig(async ({ mode }) => {
     },
     resolve: {
       alias: {
-        '@': resolve(import.meta.dirname, 'src')
+        '@': path.resolve(import.meta.dirname, 'src')
       }
     }
   }

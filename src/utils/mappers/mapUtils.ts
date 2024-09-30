@@ -2,7 +2,7 @@ import { Binary, ObjectId } from 'mongodb'
 
 const ALLOWED_SUBTYPES = new Set([
   Binary.SUBTYPE_UUID_OLD,
-  Binary.SUBTYPE_UUID,
+  Binary.SUBTYPE_UUID
 ])
 
 const K = 1000
@@ -16,7 +16,7 @@ const BYTES_MAP = {
   PB: 1024 * 1024 * 1024 * 1024 * 1024 * 1024,
   EB: 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024,
   ZB: 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024,
-  YB: 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024,
+  YB: 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024
 } as const
 const SIZES = Object.keys(BYTES_MAP)
 
@@ -25,7 +25,6 @@ const SIZES = Object.keys(BYTES_MAP)
 export const bytesToSize = (bytes: number) => {
   if (bytes === 0) return '0 Byte'
   const i = Math.floor(Math.log(bytes) / LOG)
-  // eslint-disable-next-line no-restricted-properties
   return (bytes / (K ** i)).toPrecision(3) + ' ' + SIZES[i]
 }
 
@@ -79,7 +78,6 @@ const deepmergeArray = (target: object[], src: object[]) => {
 }
 
 interface IObject {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any
 }
 
