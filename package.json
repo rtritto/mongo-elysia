@@ -15,7 +15,6 @@
     "@elysiajs/cors": "^1.1.1",
     "@tanstack/solid-query": "^5.56.2",
     "@types/bun": "^1.1.10",
-    "@types/eslint": "^9.6.1",
     "@types/node": "^22.7.4",
     "autoprefixer": "^10.4.20",
     "bson": "^6.8.0",
