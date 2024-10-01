@@ -8,7 +8,7 @@
     "dev": "bun --bun vite",
     "build": "bun --bun vite build",
     "serve": "bun --bun vite preview",
-    "lint": "bun --bun eslint .",
+    "lint": "eslint src/**/*.{ts,tsx} *.ts",
     "od": "yarn outdated"
   },
   "devDependencies": {

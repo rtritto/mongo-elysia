@@ -1,18 +1,12 @@
 import pluginTypescript from 'typescript-eslint'
-import pluginSolid from 'eslint-plugin-solid/configs/typescript'
 import pluginUnicorn from 'eslint-plugin-unicorn'
+import pluginSolid from 'eslint-plugin-solid/configs/typescript'
 import pluginTailwindcss from 'eslint-plugin-tailwindcss'
 
 export default pluginTypescript.config(
-  {
-    files: ['**/*.{ts,tsx}'],
-    ...pluginSolid
-  },
-  {
-    ignores: ['**/dist/', '**/.yarn/', '**/.vite/']
-  },
   ...pluginTypescript.configs.recommended,
   pluginUnicorn.configs['flat/recommended'],
+  pluginSolid,
   ...pluginTailwindcss.configs['flat/recommended'],
   {
     rules: {
