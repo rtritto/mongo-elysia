@@ -1,19 +1,19 @@
-import tseslint from 'typescript-eslint'
-import solidPugin from 'eslint-plugin-solid/configs/typescript'
-import eslintPluginUnicorn from 'eslint-plugin-unicorn'
-import tailwindcss from 'eslint-plugin-tailwindcss'
+import pluginTypescript from 'typescript-eslint'
+import pluginSolid from 'eslint-plugin-solid/configs/typescript'
+import pluginUnicorn from 'eslint-plugin-unicorn'
+import pluginTailwindcss from 'eslint-plugin-tailwindcss'
 
-export default tseslint.config(
+export default pluginTypescript.config(
   {
     files: ['**/*.{ts,tsx}'],
-    ...solidPugin
+    ...pluginSolid
   },
   {
     ignores: ['**/dist/', '**/.yarn/', '**/.vite/']
   },
-  ...tseslint.configs.recommended,
-  eslintPluginUnicorn.configs['flat/recommended'],
-  ...tailwindcss.configs['flat/recommended'],
+  ...pluginTypescript.configs.recommended,
+  pluginUnicorn.configs['flat/recommended'],
+  ...pluginTailwindcss.configs['flat/recommended'],
   {
     rules: {
       'comma-dangle': [1, 'never'],
