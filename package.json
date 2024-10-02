@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@elysiajs/cors": "^1.1.1",
-    "@tanstack/solid-query": "^5.56.2",
+    "@tanstack/solid-query": "^5.59.0",
     "@types/bun": "^1.1.10",
     "@types/node": "^22.7.4",
     "autoprefixer": "^10.4.20",
