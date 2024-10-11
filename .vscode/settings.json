@@ -4,14 +4,12 @@
   "editor.minimap.enabled": false,
   "editor.renderWhitespace": "all",
   "editor.tabSize": 2,
-  "eslint.alwaysShowStatus": true,
   "files.eol": "\n",
   "git.mergeEditor": false,
   "search.exclude": {
     "**/.yarn": true,
     "node_modules": true
   },
-  "scm.showOutgoingChanges": "never",
   "terminal.integrated.defaultProfile.windows": "Command Prompt",
   "typescript.tsdk": "./node_modules/typescript/lib",
   "window.commandCenter": false,
