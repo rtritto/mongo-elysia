@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "type": "module",
-  "packageManager": "yarn@4.5.0",
+  "packageManager": "yarn@4.5.1",
   "scripts": {
     "dev": "bun --bun vite",
     "build": "bun --bun vite build",
